@@ -1,26 +1,42 @@
-function Square(x, y, r) {
+function Square(x, y, width) {
 	var self = this;
-	var speedOfSquare = 3;
+	var speedOfSquare = 20;
 	
 	var colour = Utils.GetRandomColour();
-	var dx = Math.ceil(Math.random() * speedOfSquare);
-	var dy = Math.ceil(Math.random() * speedOfSquare);
+	
+	// TODO: make these private
+	this.x = x;
+	this.y = y;
+	this.dx = Math.ceil(Math.random() * speedOfSquare) / 10;
+	this.dy = Math.ceil(Math.random() * speedOfSquare) / 10;
 
 	self.draw = function(canvas) {
 		canvas.fillStyle = colour;
-		canvas.fillRect(x, y, r, r); 
+		canvas.fillRect(this.x, this.y, width, width); 
+	}
+	
+	self.getWidth = function() {
+		return width;
 	}
 
-	self.move = function(width, height) {	
-		x += dx;
-		y += dy;
-		
-		if(x + r > width || x < 0) {
-			dx *= -1;
-		}
-		
-		if(y + r > height || y < 0) {
-			dy *= -1;
-		}
+	self.move = function() {	
+		this.x += this.dx;
+		this.y += this.dy;
+	}
+	
+	self.getLeft = function() {
+		return this.x;
+	}
+	
+	self.getRight = function() {
+		return this.x + width;
+	}
+	
+	self.getTop = function() {
+		return this.y;
+	}
+	
+	self.getBottom = function() {
+		return this.y + width;
 	}
 }
